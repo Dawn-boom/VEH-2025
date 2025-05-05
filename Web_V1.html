@@ -1,1 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新能源采集技术研究</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-teal: #20B2AA;       /* 主色-水鸭色 */
+            --secondary-blue: #1E90FF;     /* 辅色-道奇蓝 */
+            --light-teal: #E0F7FA;        /* 浅水鸭色 */
+            --light-blue: #E3F2FD;        /* 浅蓝色 */
+            --accent-green: #00C853;       /* 强调色-绿色 */
+            --text-dark: #263238;          /* 深色文字 */
+            --text-light: #ECEFF1;        /* 浅色文字 */
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--light-teal), var(--light-blue));
+            background-attachment: fixed;
+            line-height: 1.7;
+        }
+
+        /* 导航栏样式 */
+        .navbar {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1rem 3rem;
+            box-shadow: 0 4px 12px rgba(30, 144, 255, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--primary-teal);
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-teal);
+            background: rgba(32, 178, 170, 0.1);
+        }
+
+        /* 内容区域 */
+        .content-section {
+            max-width: 1200px;
+            margin: 100px auto 50px;
+            padding: 2rem 3rem;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(30, 144, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-teal);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--secondary-blue);
+            font-size: 2.2rem;
+            position: relative;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100px;
+            height: 2px;
+            background: var(--accent-green);
+        }
+
+        h2 {
+            color: var(--secondary-blue);
+            margin: 1.5rem 0 1rem;
+        }
+
+        /* 卡片样式 */
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            margin: 2rem 0;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(30, 144, 255, 0.15);
+        }
+
+        /* 视频容器 */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            margin: 2rem 0;
+            background: #000;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* 理论推导样式 */
+        .equation {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 1.3rem;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: linear-gradient(to right, #f5f5f5, white);
+            border-left: 4px solid var(--accent-green);
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* 特色元素 */
+        .feature-box {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-icon {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            background: var(--primary-teal);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            color: var(--text-dark);
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .content-section {
+                padding: 1.5rem;
+                margin: 80px 1rem 2rem;
+            }
+            
+            .feature-box {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">EnergyHarvest</div>
+            <ul class="nav-links">
+                <li><a href="#member">Member</a></li>
+                <li><a href="#abstract">Introduction</a></li>
+                <li><a href="#video">Experiment Process</a></li>
+                <li><a href="#theory">Theory Model</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 成员介绍 -->
+    <section id="member" class="content-section">
+        <h1>Members</h1>
+        
+        <div class="card">
+            <h2></h2>
+            <p>随着全球能源需求持续增长，新型能量采集技术成为解决能源危机和环境问题的关键。本课题专注于环境友好型能量转换技术，通过创新方法从周围环境中收集微小能量并转化为可用电能。</p>
+        </div>
+        
+        <div class="card">
+            <h2>应用前景</h2>
+            <p>该技术可广泛应用于物联网设备供电、可穿戴电子设备、远程传感器网络等领域，为构建智慧城市和可持续发展社会提供基础能源支持。</p>
+        </div>
+    </section>
+
+
+    <!-- 摘要页面 -->
+    <section id="abstract" class="content-section">
+        <h1>新能源采集技术摘要</h1>
+        
+        <div class="card">
+            <h2>技术概述</h2>
+            <p>随着全球能源需求持续增长，新型能量采集技术成为解决能源危机和环境问题的关键。本课题专注于环境友好型能量转换技术，通过创新方法从周围环境中收集微小能量并转化为可用电能。</p>
+        </div>
+        
+        <div class="feature-box">
+            <div class="feature-icon">✓</div>
+            <div>
+                <h2>技术优势</h2>
+                <ul>
+                    <li>零碳排放的绿色能源解决方案</li>
+                    <li>可持续的分布式能源采集网络</li>
+                    <li>高效率的微能量转换系统</li>
+                    <li>广泛的环境适应能力</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>应用前景</h2>
+            <p>该技术可广泛应用于物联网设备供电、可穿戴电子设备、远程传感器网络等领域，为构建智慧城市和可持续发展社会提供基础能源支持。</p>
+        </div>
+    </section>
+
+    <!-- 测试视频页面 -->
+    <section id="video" class="content-section">
+        <h1>实验测试视频</h1>
+        
+        <div class="card">
+            <h2>压电能量采集装置演示</h2>
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/示例视频ID" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <p>视频展示了我们的实验装置如何将机械振动能量转化为电能，并点亮LED指示灯。</p>
+        </div>
+        
+        <div class="card">
+            <h2>太阳能-风能混合系统</h2>
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/示例视频ID" 
+                    frameborder="0" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <p>我们的混合能源系统在多变环境条件下的性能测试。</p>
+        </div>
+    </section>
+
+    <!-- 理论推导页面 -->
+    <section id="theory" class="content-section">
+        <h1>理论推导</h1>
+        
+        <div class="card">
+            <h2>压电能量采集基本方程</h2>
+            <div class="equation">
+                P = η × (ε × A × d<sub>33</sub> × f × V)<sup>2</sup>
+            </div>
+            <p>其中：</p>
+            <ul>
+                <li><strong>P</strong> - 输出功率 (W)</li>
+                <li><strong>η</strong> - 转换效率 (%)</li>
+                <li><strong>ε</strong> - 介电常数 (F/m)</li>
+                <li><strong>d<sub>33</sub></strong> - 压电常数 (C/N)</li>
+                <li><strong>A</strong> - 有效面积 (m²)</li>
+                <li><strong>f</strong> - 振动频率 (Hz)</li>
+                <li><strong>V</strong> - 输出电压 (V)</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <h2>热电能转换效率</h2>
+            <div class="equation">
+                η<sub>TE</sub> = (T<sub>h</sub> - T<sub>c</sub>) / T<sub>h</sub> × (√(1 + ZT) - 1) / (√(1 + ZT) + T<sub>c</sub>/T<sub>h</sub>)
+            </div>
+            <p>其中Z为热电优值，T为平均温度，T<sub>h</sub>和T<sub>c</sub>分别为热端和冷端温度。</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2023 新能源采集技术研究中心 | 联系方式: contact@energyharvest.com</p>
+    </footer>
+
+    <script>
+        // 平滑滚动效果
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                
+                // 更新URL但不刷新页面
+                history.pushState(null, null, targetId);
+            });
+        });
+
+        // 页面加载时检查hash
+        window.addEventListener('load', function() {
+            if (window.location.hash) {
+                setTimeout(() => {
+                    const target = document.querySelector(window.location.hash);
+                    if (target) {
+                        window.scrollTo(0, target.offsetTop - 80);
+                    }
+                }, 100);
+            }
+        });
+
+        // 导航栏滚动效果
+        let lastScroll = 0;
+        const navbar = document.querySelector('.navbar');
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll <= 0) {
+                navbar.style.boxShadow = '0 4px 12px rgba(30, 144, 255, 0.1)';
+                navbar.style.transform = 'translateY(0)';
+            } else if (currentScroll > lastScroll) {
+                navbar.style.boxShadow = 'none';
+                navbar.style.transform = 'translateY(-100%)';
+            } else {
+                navbar.style.boxShadow = '0 4px 12px rgba(30, 144, 255, 0.1)';
+                navbar.style.transform = 'translateY(0)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // 卡片动画
+        const cards = document.querySelectorAll('.card');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
