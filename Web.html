@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Spherical Magnets-Based Annular Electromagnetic Energy Harvester</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Open+Sans:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-teal: #20B2AA;
+            /* 主色-水鸭色 */
+            --secondary-blue: #1E90FF;
+            /* 辅色-道奇蓝 */
+            --light-teal: #E0F7FA;
+            /* 浅水鸭色 */
+            --light-blue: #E3F2FD;
+            /* 浅蓝色 */
+            --accent-green: #00C853;
+            /* 强调色-绿色 */
+            --text-dark: #263238;
+            /* 深色文字 */
+            --text-light: #ECEFF1;
+            /* 浅色文字 */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--light-teal), var(--light-blue));
+            background-attachment: fixed;
+            line-height: 1.7;
+        }
+
+        /* 导航栏样式 */
+        .navbar {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1rem 3rem;
+            box-shadow: 0 4px 12px rgba(30, 144, 255, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--primary-teal);
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-teal);
+            background: rgba(32, 178, 170, 0.1);
+        }
+
+        /* 内容区域 */
+        .content-section {
+            max-width: 1200px;
+            margin: 100px auto 50px;
+            padding: 2rem 3rem;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(30, 144, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-teal);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--secondary-blue);
+            font-size: 2.2rem;
+            position: relative;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100px;
+            height: 2px;
+            background: var(--accent-green);
+        }
+
+        h2 {
+            color: var(--secondary-blue);
+            margin: 1.5rem 0 1rem;
+        }
+
+        /* 人物卡片样式 */
+        .person-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+            padding: 1.5rem;
+        }
+
+        .person-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            border: 4px solid var(--light-teal);
+            flex-shrink: 0;
+        }
+
+        .person-info {
+            flex: 1;
+        }
+
+        .person-content {
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .person-content::before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--light-teal);
+            position: absolute;
+            left: -0.5rem;
+            top: -1.5rem;
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        .person-content p {
+            font-style: italic;
+            color: var(--text-dark);
+            position: relative;
+            z-index: 1;
+        }
+
+        .person-title {
+            margin-top: 1rem;
+            text-align: right;
+        }
+
+        .person-title h4 {
+            color: var(--primary-teal);
+            margin-bottom: 0.2rem;
+        }
+
+        .person-title p {
+            color: var(--secondary-blue);
+            font-size: 0.9rem;
+        }
+
+        /* 新版长方形证件照样式 */
+        .person-photo-frame {
+            width: 150px;
+            /* 2寸照片宽度比例 */
+            height: 210px;
+            /* 2寸照片高度比例 */
+            position: relative;
+            margin-right: 2rem;
+            flex-shrink: 0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #eee;
+        }
+
+        .person-photo {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: top center;
+            /* 移除圆形样式 */
+            border-radius: 0;
+            border: none;
+            /* 证件照白底效果 */
+            background-color: #fff;
+            background-clip: content-box;
+            padding: 4px;
+        }
+
+        .photo-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--primary-teal);
+            color: white;
+            text-align: center;
+            padding: 6px;
+            font-size: 0.8rem;
+        }
+
+        /* 调整引用符号位置 */
+        .person-content::before {
+            left: 0;
+            top: -2rem;
+        }
+
+        /* 联系信息样式 */
+        .contact-info {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--secondary-blue);
+        }
+
+        .contact-info i {
+            margin-right: 5px;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .person-photo-frame {
+                width: 120px;
+                /* 移动端改为1寸比例 */
+                height: 170px;
+                margin: 0 auto 1.5rem;
+            }
+
+            .person-content::before {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .person-card {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .person-content {
+                padding-left: 0;
+                text-align: center;
+            }
+
+            .person-content::before {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .person-title {
+                text-align: center;
+            }
+        }
+
+        /* 卡片样式 */
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            margin: 2rem 0;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(30, 144, 255, 0.15);
+        }
+
+        /* 视频容器 */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            margin: 2rem 0;
+            background: #000;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* 理论推导样式 */
+        .equation {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 1.3rem;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: linear-gradient(to right, #f5f5f5, white);
+            border-left: 4px solid var(--accent-green);
+            border-radius: 0 8px 8px 0;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        /* 实验结果展示 */
+        .result-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .result-image img {
+            width: 100%;
+            max-width: 100%;
+            border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .result-image img:hover {
+            transform: scale(1.02);
+        }
+
+        .image-caption {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+        }
+
+        .equation-number {
+            position: absolute !important;
+            right: 1rem !important;
+            bottom: 0.5rem !important;
+            color: #666 !important;
+            display: block !important;
+            /* 确保显示 */
+        }
+
+
+        .citation {
+            color: var(--accent-color);
+            font-style: italic;
+        }
+
+        /* MathJax 公式样式调整 */
+        mjx-container[jax="CHTML"] {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        /* 特色元素 */
+        .feature-box {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-icon {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            background: var(--primary-teal);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            color: var(--text-dark);
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .content-section {
+                padding: 1.5rem;
+                margin: 80px 1rem 2rem;
+            }
+
+            .feature-box {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">MEMSGroup</div>
+            <ul class="nav-links">
+                <li><a href="#abstract">Introduction</a></li>
+                <li><a href="#theory">Theory Model</a></li>
+                <li><a href="#video">Experiment Process</a></li>
+                <li><a href="#member">Members</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 摘要页面 -->
+    <section id="abstract" class="content-section">
+        <h1>Multiple Spherical Magnets-Based Annular Electromagnetic Energy Harvester</h1>
+
+        <div class="card">
+            <h2>Introduction</h2>
+            <p>
+                As the imbalance between energy supply and demand grows increasingly critical, energy harvesting has emerged as a promising way to alleviate the problem. In this paper, an annular electromagnetic energy harvester based on spherical magnets is introduced, which is suited for harvesting energy from rotating structures such as wheels under various scenarios. MATLAB and COMSOL simulation were conducted respectively to model the magnetic distribution of spherical magnets and the magnetic line cutting motion between magnets and coils. Experiments were conducted to test the harvester's performance, with a variation of coil counts from 1 to 5, and the number of magnets from 2 to 6 under a self-built test system. According to the results, our device can achieve a maximum peak power of 23 mW, and charge the 100 μF, 230 μF and 330 μF capacitors to 1.75 V, 1.625 V, and 1.275 V in 180 seconds respectively, showing a promising prospect in solving energy problems.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>Model Design</h2>
+            <p>Our design features a toroidal design with an inclined cut to reduce friction, with coils tightly wound around the structure and magnetic beads arranged end-to-end inside the inner tube, ensuring sliding rather than rolling motion, as shown in Fig. 1. Based on the principle of electromagnetic induction, electric current is generated as the tube rotates and the coils cut through the magnetic flux lines, efficiently converting mechanical motion into electrical energy.
+            </p>
+            <div class="result-image">
+                <img src="https://dawn-boom.github.io/VEH2025/image/model.png" alt="混合系统功率输出曲线">
+                <p class="image-caption">Fig. 1. (a) Schematic, and (b) prototype of the harvester.</p>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- 理论推导页面 -->
+    <section id="theory" class="content-section">
+        <h1>Theory Model</h1>
+
+        <div class="card">
+            <h2>Demagnetizing Field of a Spherical Magnet</h2>
+            <p>By solving the Laplace's equation, the magnetic potential inside the uniformly magnetized sphere is
+                given by:</p>
+
+            <div class="equation">
+                \[ \varphi_i = - \mathbf{H}_i \cdot \mathbf{r}, \]
+                <span class="equation-number">(1)</span>
+            </div>
+
+            <p>where \(\mathbf{H}_i\) is the magnetic field inside the sphere, and \(\mathbf{r}\) is the position
+                vector from the center of the sphere.</p>
+            <br />
+            <p>Outside the sphere, the magnetic potential is expressed as:</p>
+
+            <div class="equation">
+                \[ \varphi_e = - \mathbf{H}_0 \cdot \mathbf{r} + \frac{\mathbf{m} \cdot \mathbf{r}}{r^3}, \]
+                <span class="equation-number">(2)</span>
+            </div>
+
+            <p>where \(\mathbf{H}_0\) is the external magnetic field, \(\mathbf{m}\) is the magnetic dipole moment,
+                and \(r = |\mathbf{r}|\) is the distance from the sphere's center.</p>
+            <br />
+
+            <p>The magnetic dipole moment is given by:</p>
+
+            <div class="equation">
+                \[ \mathbf{m} = \frac{4\pi}{3} a^3 \mathbf{M}, \]
+                <span class="equation-number">(3)</span>
+            </div>
+
+            <p>where \(a\) is the sphere's radius, and \(\mathbf{M}\) is the uniform magnetization of the sphere.
+            </p>
+
+            <br />
+            <p>To determine \(\mathbf{M}\) and \(\mathbf{H}_i\), boundary conditions at the sphere's surface are
+                applied:</p>
+
+            <ul>
+                <li>The normal component of magnetic induction is continuous:
+                    <div class="equation">
+                        \[ B_{i,\perp} = B_{e,\perp}. \]
+                        <span class="equation-number">(4)</span>
+                    </div>
+                </li>
+                <li>The tangential component of magnetic field strength is continuous:
+                    <div class="equation">
+                        \[ H_{i,\parallel} = H_{e,\parallel}. \]
+                        <span class="equation-number">(5)</span>
+                    </div>
+                </li>
+            </ul>
+
+            <p>Using these boundary conditions, the magnetization vector is derived as:
+
+            <div class="equation">
+                \[ \mathbf{M} = \frac{3(\mu_i - \mu_e)}{\mu_i + 2\mu_e} \mathbf{H}_0 + \frac{3\mu_0
+                \mathbf{M}_0}{\mu_i + 2\mu_e}, \]
+                <span class="equation-number">(6)</span>
+            </div>
+
+            <p>where \(\mu_i\) and \(\mu_e\) are the magnetic permeabilities of the sphere and the surrounding
+                medium, respectively.</p>
+            <br />
+
+            <p>Then the magnetic field inside the sphere is expressed as:</p>
+
+            <div class="equation">
+                \[ \mathbf{H}_i = \frac{3\mu_e}{\mu_i + 2\mu_e} \mathbf{H}_0 - \frac{\mu_0 \mathbf{M}_0}{\mu_i +
+                2\mu_e}, \]
+                <span class="equation-number">(7)</span>
+            </div>
+
+            <p>where \(\mathbf{M}_0\) represents the sphere's intrinsic magnetization.</p>
+
+            <br />
+            <p>The demagnetizing field \(\mathbf{H}_M\) created by the sphere as a result of its magnetization
+                (induced and permanent) is defined as:</p>
+
+            <div class="equation">
+                \[ \mathbf{H}_M = \mathbf{H}_i-\mathbf{H}_0 = - \frac{\mathbf{M}}{3}. \]
+                <span class="equation-number">(8)</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Magnetic Field of a Single Magnetic Bead</h2>
+
+            <p>Assuming that the spherical magnet is uniformly magnetized. Then, according to Eq. (8), the magnetic
+                field intensity inside a uniformly magnetized sphere \( \mathbf{H} \) is constant and given by:</p>
+
+            <div class="equation">
+                \[ \mathbf{H}_{\text{inside}} = -\frac{1}{3} \vec{M}. \]
+                <span class="equation-number">(1)</span>
+            </div>
+
+            <p>This result is derived from solving the boundary conditions at the surface of the sphere and using the
+                fact that the magnetization \( \mathbf{M} \) is uniform. And the magnetic field \( \mathbf{B} \) can be
+                calculated by:</p>
+
+            <div class="equation">
+                \[ \mathbf{B}=\mu_0(\vec{H}+\vec{M})=\frac{2}{3}\mu_0\vec{M} \]
+                <span class="equation-number">(2)</span>
+            </div>
+
+            <p>To calculate the magnetic field outside the spherical magnet, the magnet can be approximated as a
+                magnetic dipole. For a magnetic dipole, the magnetic dipole moment is expressed as:</p>
+
+            <div class="equation">
+                \[ \vec{m}=\int_v\vec{M}dV, \]
+                <span class="equation-number">(3)</span>
+            </div>
+
+            <p>where \(\mathbf{M}\) is the magnetization and V is the volume of the bead.</p>
+
+            <br />
+            <p>Then, the magnetic scalar potential \( \mathbf{\Phi}_m \) can be derived:</p>
+
+            <div class="equation">
+                \[ \Phi_m(r)=\frac{\mu_0}{4\pi}\int_{v'}\frac{\vec{M}\cdot \hat{r}'}{|\vec{r}-\vec{r}'|^2}dv'. \]
+                <span class="equation-number">(4)</span>
+            </div>
+
+            <p>For a spherical magnet located at the origin, Eq. (4) can be simplified to:</p>
+
+            <div class="equation">
+                \[ \Phi_m(r)=\frac{\mu_0}{4\pi}\frac{\vec{m}\cdot \hat{r}}{r^2}, \]
+                <span class="equation-number">(5)</span>
+            </div>
+
+            <div class="variables">
+                <p>where:</p>
+                <ul>
+                    <li>\( \mu_0 \): Vacuum permeability.</li>
+                    <li>\( \vec{m} \): Magnetic dipole moment of the bead.</li>
+                    <li>\( \hat{r} \): Unit vector in the direction of \( \vec{r} \).</li>
+                    <li>\( r \): Distance from the dipole center to the field point.</li>
+                </ul>
+            </div>
+
+            <br />
+            <p>Based on this, the magnetic field \( \mathbf{B} \) at a point \( \mathbf{r} \) in space is given by:</p>
+
+            <div class="equation">
+                \[ \mathbf{B}=-\nabla\Phi_m=\frac{\mu_0}{4\pi}\left [\frac{3(\vec{m}\cdot \hat{r})\hat{r}-\vec{m}}{
+                r^3}\right]. \]
+                <span class="equation-number">(6)</span>
+            </div>
+        </div>
+        <div class="card">
+            <h2>Magnetic Field of Multiple Magnetic Beads</h2>
+
+            <p>The magnetic field intensity distribution for multiple magnetic beads can be calculated using the
+                superposition principle. For multiple magnetic beads, the total magnetic field at a point is the
+                vector sum of the fields generated by each bead:</p>
+
+            <div class="equation">
+                \[ \mathbf{B}_{\text{total}} = \sum_{i=1}^N \mathbf{B}_i(\mathbf{r}), \]
+                <span class="equation-number">(7)</span>
+            </div>
+
+            <p>where \( N \) is the number of beads, and \( \mathbf{B}_i \) is the field from the \( i \)-th bead,
+                calculated using the dipole formula.</p>
+
+            <br />
+            <p>As an example, the case of two magnetic beads is considered here. Consider two magnetic beads with
+                dipole moments \( \mathbf{m}_1 \) and \( \mathbf{m}_2 \), located at positions \( \mathbf{r}_1 \)
+                and \( \mathbf{r}_2 \), respectively. The field at a point \( \mathbf{r} \) is:</p>
+
+            <div class="equation">
+                \[ \mathbf{B}(\mathbf{r}) = \mathbf{B}_1(\mathbf{r}) + \mathbf{B}_2(\mathbf{r}), \]
+                <span class="equation-number">(8)</span>
+            </div>
+
+            <p>where each term is computed using Eq. (6), with \( \mathbf{r}_i \) replaced by the vector \(
+                \mathbf{r} - \mathbf{r}_i \).</p>
+
+            <br />
+            <p>Suppose that the two spherical magnets are located at \((0,r,0)\) and \((0,-r,0)\), symmetric about
+                the y axis respectively. And the magnetic dipole moment is:</p>
+
+            <div class="equation">
+                \[ \vec{m}=(0,m,0). \]
+                <span class="equation-number">(9)</span>
+            </div>
+
+            <p>Then, the total magnetic field of two beads cases can be calculated from:</p>
+
+            <div class="equation">
+                \[ \mathbf{B}_1 = \frac{\mu_{0}}{4\pi r_{1}^{3}}\left( \frac{3(y-r)mx}{r_{1}^{2}},
+                \frac{3(y-r)^{2}m}{r_{1}^{2}} - m, \frac{3(y-r)mz}{r_{1}^{2}} \right), \]
+                <span class="equation-number">(10)</span>
+            </div>
+
+            <div class="equation">
+                \[ \mathbf{B}_2 = \frac{\mu_{0}}{4\pi r_{2}^{3}}\left( \frac{3(y+r)mx}{r_{2}^{2}},
+                \frac{3(y+r)^{2}m}{r_{2}^{2}} - m, \frac{3(y+r)mz}{r_{2}^{2}} \right), \]
+                <span class="equation-number">(11)</span>
+            </div>
+
+            <p>where \( r_1 \) and \( r_2 \) are the Euclidean distance between a random point \((x,y,z)\) in the
+                space and the two magnet beads,</p>
+
+            <div class="equation">
+                \[ r_1=\sqrt{x^{2}+(y-r)^{2}+z^{2}}, \]
+                <span class="equation-number">(12)</span>
+            </div>
+
+            <div class="equation">
+                \[ r_2=\sqrt{x^{2}+(y+r)^{2}+z^{2}}. \]
+                <span class="equation-number">(13)</span>
+            </div>
+        </div>
+        </div>
+    </section>
+
+
+    <!-- 测试视频页面 -->
+    <section id="video" class="content-section">
+        <h1>Experiment Process</h1>
+
+        <div class="card">
+            <h2>Experiment Display</h2>
+            <div class="video-container">
+                <iframe src="https://dawn-boom.github.io/VEH2025/image/video.mp4" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <p></p>
+        </div>
+
+        <div class="card">
+            <h2>Experiment Setup</h2>
+            <p>To investigate the relationship between the device’s output voltage and the magnets and the coil counts, we built a test system  consisting of a motor, a circular rotating disk, and an oscilloscope.</p>
+            <div class="result-image">
+                <img src="https://dawn-boom.github.io/VEH2025/image/experiment_result/setup.png" alt="混合系统功率输出曲线">
+                <p class="image-caption">Fig. 2. Experimental setup: top is the schematic diagram and bottom is the physical prototype.</p>
+            </div>
+            <br />
+        </div>
+        <div class="card">
+            <h2>Simulation Results</h2>
+            <div class="result-image">
+                <img src="https://dawn-boom.github.io/VEH2025/image/experiment_result/MATLAB.png" alt="混合系统功率输出曲线">
+                <p class="image-caption">Fig. 3. Magnetic field distribution of uniform magnetized: (a) cylindrical magnet, (b)
+                    multiple spherical magnets.</p>
+            </div>
+            <div class="result-image">
+                <img src="https://dawn-boom.github.io/VEH2025/image/experiment_result/si.png" alt="混合系统功率输出曲线">
+                <p class="image-caption">Fig. 4. COMSOL simulation results of the the output characteristics tested under open
+                    circuit situation: (a) peak power, and (b) average power of the output.</p>
+            </div>
+            <br />
+            <p>
+                In order to better analyze the output characteristics of the proposed energy harvester, MATLAB and
+                COMSOL simulation were conducted respectively to model the magnetic distribution of spherical magnets
+                and the magnetic line cutting motion between magnets and coils. Fig. 2 illustrates that the magnetic
+                field of multiple magnets can be equivalent to that of a single cylindrical magnet while analyzing.
+                According to the COMSOL simulation results shown in Fig. 3, output of the harvester exhibits a positive
+                correlation with the number of magnets and coil turns.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>Experiment Results</h2>
+            <div class="result-image">
+                <img src="https://dawn-boom.github.io/VEH2025/image/experiment_result/ex.png" alt="混合系统功率输出曲线">
+                <p class="image-caption">Fig. 5. Experiment results of the output characteristics tested under a 300 𝛺
+                    load resistor: (a) peak power, and (b) average power of the output.</p>
+            </div>
+            <div class="result-image">
+                <img src="https://dawn-boom.github.io/VEH2025/image/experiment_result/电容充放电.png" alt="混合系统功率输出曲线">
+                <p class="image-caption">Fig. 6. Experiment results: (a) capacitor charging experiment, and (b) LED lighting
+                    experiment.</p>
+            </div>
+            <br />
+            <p>Output characteristic of our design was tested through varing coil counts from 1 to 5, and the number of
+                magnets from 2 to 6. The maximum output voltage and average output power showed good agreement with
+                simulation results, exhibiting a positive correlation with the number of magnetic beads and coil turns,
+                and achieving a maximum peak power of 23 mW according to Fig. 5.
+            </p><br />
+            <p>To evaluate the charging capability of the device, capacitor charging experiments were conducted on 100
+                μF, 220 μF, and 330 μF capacitors respectively, using a full-wave rectifier to convert the AC output to
+                DC while rotating. The 100 μF, 230 μF and 330 μF capacitors were charged to 1.75 V, 1.625 V, and 1.275 V
+                in 180 seconds respectively, demonstrating a high energy harvesting efficiency and storage performance.
+            </p>
+            <br />
+            To further prove the performance of our design, a LED lighting experiment was conducted. As illustrated in
+            Fig. 7, our harvester successfully powered 107 LEDs in parallel.
+        </div>
+    </section>
+
+    <!-- 成员介绍 -->
+    <section id="member" class="content-section">
+        <h1>Members</h1>
+
+        <div class="card person-card">
+            <div class="person-photo-frame">
+                <div class="person-photo"
+                    style="background-image: url('https://dawn-boom.github.io/VEH2025/image/member/QuanAn.JPG')"></div>
+            </div>
+            <div class="person-info">
+                <h2>Quan An</h2>
+                <div class="person-content">
+                    <p>Quan An is currently an undergraduate in the School of Microelectronics, Southern University of
+                        Science and Technology (SUSTech). She is a member of Prof. Fei Wang's MEMS group and her
+                        research interests include electromagnetic energy harvesting, and self-power system.</p>
+                    <div class="person-title">
+                        <div class="contact-info">
+                            <span><i class="fas fa-envelope"></i>12213057@mail.sustech.edu.cn</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card person-card">
+            <div class="person-photo-frame">
+                <div class="person-photo"
+                    style="background-image: url('https://dawn-boom.github.io/VEH2025/image/member/YexinLi.jpg')"></div>
+            </div>
+            <div class="person-info">
+                <h2>Yexin Li</h2>
+                <div class="person-content">
+                    <p>Yexin Li is currently an undergraduate in the School of Microelectronics, Southern University of
+                        Science and Technology (SUSTech). She is a member of Prof. Fei Wang’s MEMS group and her current
+                        research interests include micro energy harvesters and self-power system.</p>
+                    <div class="person-title">
+                        <div class="contact-info">
+                            <span><i class="fas fa-envelope"></i>12211860@mail.sustech.edu.cn</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card person-card">
+            <div class="person-photo-frame">
+                <div class="person-photo"
+                    style="background-image: url('https://dawn-boom.github.io/VEH2025/image/member/ShanghaoGu.png')"></div>
+            </div>
+            <div class="person-info">
+                <h2>Shanghao Gu</h2>
+                <div class="person-content">
+                    <p>Shanghao Gu received the MS degree in power engineering from the Zhengzhou University,
+                        Zhengzhou, China, in 2022. He is currently a Ph.D. in School of Microelectronics, Southern
+                        University of Science and Technology (SUSTech). His current research interests include the
+                        Piezoelectric Energy Harvesting, Electromagnetic Energy Harvesting, and Self-Power System.
+                    </p>
+                    <div class="person-title">
+                        <div class="contact-info">
+                            <span><i class="fas fa-envelope"></i>12331331@mail.sustech.edu.cn</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card person-card">
+            <div class="person-photo-frame">
+                <div class="person-photo"
+                    style="background-image: url('https://dawn-boom.github.io/VEH2025/image/member/FeiWang.png')"></div>
+            </div>
+            <div class="person-info">
+                <h2>Fei Wang</h2>
+                <div class="person-content">
+                    <p>Fei Wang received the B.S. degree in mechanical engineering from the University of
+                        Science and Technology of China, Hefei, China, in 2003, and the Ph.D. degree in
+                        microelectronics from the Shanghai Institute of Microsystem and Information Technology,
+                        Chinese Academy of Science, Shanghai, China, in 2008.
+                        <br />
+                        He was a Post-Doctoral Researcher with the Department of Micro- and Nano-technology,
+                        Technical University of Denmark, where he had been an Assistant Professor since 2010.
+                        From 2013 to 2023, he has been an Associate Professor with the School of
+                        Microelectronics, Southern University of Science and Technology (SUSTech), China. Since
+                        2023, he has been a Professor with the School of Microelectronics, SUStech. His current
+                        research interests include micro energy harvesting, microelectromechanical system and
+                        NEMS sensors, and semiconductor testing.
+                    </p>
+                    <div class="person-title">
+                        <div class="contact-info">
+                            <span><i class="fas fa-envelope"></i>wangf@sustech.edu.cn</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <footer>
+        <p>© MEMSGroup | Contact by: wangf@sustech.edu.cn</p>
+    </footer>
+
+    <script>
+
+        // 平滑滚动效果
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+
+                // 更新URL但不刷新页面
+                history.pushState(null, null, targetId);
+            });
+        });
+
+        // 更新悬停效果
+        document.querySelectorAll('.person-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const photoFrame = card.querySelector('.person-photo-frame');
+                photoFrame.style.transform = 'scale(1.03)';
+                photoFrame.style.boxShadow = '0 5px 15px rgba(30, 144, 255, 0.2)';
+                photoFrame.style.borderColor = 'var(--accent-green)';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                const photoFrame = card.querySelector('.person-photo-frame');
+                photoFrame.style.transform = 'scale(1)';
+                photoFrame.style.boxShadow = '0 3px 10px rgba(0,0,0,0.1)';
+                photoFrame.style.borderColor = '#eee';
+            });
+        });
+
+
+
+
+        // 页面加载时检查hash
+        window.addEventListener('load', function () {
+            if (window.location.hash) {
+                setTimeout(() => {
+                    const target = document.querySelector(window.location.hash);
+                    if (target) {
+                        window.scrollTo(0, target.offsetTop - 80);
+                    }
+                }, 100);
+            }
+        });
+
+        // 导航栏滚动效果
+        let lastScroll = 0;
+        const navbar = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll <= 0) {
+                navbar.style.boxShadow = '0 4px 12px rgba(30, 144, 255, 0.1)';
+                navbar.style.transform = 'translateY(0)';
+            } else if (currentScroll > lastScroll) {
+                navbar.style.boxShadow = 'none';
+                navbar.style.transform = 'translateY(-100%)';
+            } else {
+                navbar.style.boxShadow = '0 4px 12px rgba(30, 144, 255, 0.1)';
+                navbar.style.transform = 'translateY(0)';
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        // 卡片动画
+        const cards = document.querySelectorAll('.card');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+
+</html>
